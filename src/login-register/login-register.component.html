@@ -4,7 +4,7 @@
   <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
   <label>Password:  </label>
   <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
-  <button (click)="login()">Login</button>
+  <button (click)="login()"></button>
 </div>
-<p class="error" *ngIf="inputError == true">Invalid username or password</p>
+<p class="error" *ngIf="inputError">Invalid username or password</p>
 <a href="/register">Register new account</a>

@@ -1,28 +1,25 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login-register',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [FormsModule, CommonModule],
+  templateUrl: './login-register.component.html',
+  styleUrl: './login-register.component.css'
 })
-export class AppComponent {
-  title = 'parser-front-end';
-  
+export class LoginRegisterComponent {
+
   username : string = '';
   password : string = '';
   inputError : boolean = false;
 
+  constructor(){
+
+  }
+
   login() : void {
-    if(this.username === '' || this.password === ''){
-      this.inputError = true;
-    }
-
-
     if(!this.inputError){
       console.log(this.username);
       console.log(this.password);
