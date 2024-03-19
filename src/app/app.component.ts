@@ -6,11 +6,12 @@ import { LoginRegisterComponent } from '../login-register/login-register.compone
 import { AccountService } from './account.service';
 import { PastFilesComponent } from './past-files/past-files.component';
 import { FileViewComponent } from './file-view/file-view.component';
+import { HomeUploadComponent } from './home-upload/home-upload.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule, LoginRegisterComponent, PastFilesComponent, FileViewComponent],
+  imports: [RouterOutlet, FormsModule, CommonModule, LoginRegisterComponent, PastFilesComponent, FileViewComponent, HomeUploadComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
