@@ -1,10 +1,9 @@
-<h1>LOGIN</h1>
-<div>
-  <label>Username:  </label>
-  <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
-  <label>Password:  </label>
-  <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
-  <button (click)="login()">Login</button>
+<div style="margin-left: 98%;">
+  <a *ngIf="!isLoggedIn()" href="/login">Login</a>
+  <a *ngIf="isLoggedIn()" href="/account">Account</a>
+  <a *ngIf="isAdmin()" href="/admin">Admin</a>
 </div>
-<p class="error" *ngIf="inputError == true">Invalid username or password</p>
-<a href="/register">Register new account</a>
+
+<!-- <app-login-register></app-login-register> -->
+<!-- <app-past-files></app-past-files> -->
+<app-file-view></app-file-view>

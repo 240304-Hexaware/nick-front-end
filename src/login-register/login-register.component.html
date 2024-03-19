@@ -1,10 +1,28 @@
-<h1>LOGIN</h1>
-<div>
-  <label>Username:  </label>
-  <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
-  <label>Password:  </label>
-  <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
-  <button (click)="login()"></button>
+<div *ngIf="!registering">
+  <h1>LOGIN</h1>
+  <div>
+    <label>Username:  </label>
+    <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
+    <label>Password:  </label>
+    <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
+    <button (click)="login()">Login</button>
+  </div>
+  <p class="error" *ngIf="inputError == true">Invalid username or password</p>
+  <a (click)="registering = true;">Register new account</a>
 </div>
-<p class="error" *ngIf="inputError">Invalid username or password</p>
-<a href="/register">Register new account</a>
+
+<div *ngIf="registering">
+  <h1>REGISTER</h1>
+  <div>
+    <label>Username:  </label>
+    <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
+    <label>Password:  </label>
+    <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
+    <label>Retype Password:  </label>
+    <input type="text" id="repassword" [(ngModel)] ="repassword" (click)="inputError = false"><br><br>
+    <button (click)="register()">Register</button>
+  </div>
+  <p class="error" *ngIf="inputError == true">Passwords do not match</p>
+</div>
+
+<router-outlet/>
