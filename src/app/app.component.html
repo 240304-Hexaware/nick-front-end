@@ -1,10 +1,10 @@
-<div style="margin-left: 98%;">
-  <a *ngIf="!isLoggedIn()" href="/login">Login</a>
-  <a *ngIf="isLoggedIn()" href="/account">Account</a>
-  <a *ngIf="isAdmin()" href="/admin">Admin</a>
+<div style="margin-left: 97%; color: blue; cursor: pointer; text-decoration: underline;">
+  <a *ngIf="!isUser()" routerLink="/login">Login</a>
+  <a *ngIf="isUser()" routerLink="/files">Account</a>
+  <a *ngIf="isAdmin()" routerLink="/admin">Admin</a>
 </div>
-
+<router-outlet></router-outlet>
 <!-- <app-login-register></app-login-register> -->
 <!-- <app-past-files></app-past-files> -->
 <!-- <app-file-view></app-file-view> -->
-<app-home-upload></app-home-upload>
+<!-- <app-home-upload></app-home-upload> -->

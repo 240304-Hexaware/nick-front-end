@@ -5,7 +5,7 @@
     <input type="text" id="username" [(ngModel)]="username" (click)="inputError = false"><br><br>
     <label>Password:  </label>
     <input type="text" id="password" [(ngModel)] ="password" (click)="inputError = false"><br><br>
-    <button (click)="login()">Login</button>
+    <button (click)="login()" routerLink="/home">Login</button>
   </div>
   <p class="error" *ngIf="inputError == true">Invalid username or password</p>
   <a (click)="registering = true;">Register new account</a>

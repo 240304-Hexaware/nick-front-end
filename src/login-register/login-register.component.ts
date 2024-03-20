@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { AccountService } from '../app/account.service';
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterOutlet],
   templateUrl: './login-register.component.html',
-  styleUrl: './login-register.component.css'
+  styleUrl: './login-register.component.scss'
 })
 export class LoginRegisterComponent {
 
@@ -17,6 +18,13 @@ export class LoginRegisterComponent {
   repassword : string = '';
   inputError : boolean = false;
   registering : boolean = false;
+  myAccountService : AccountService;
+  myRouter : Router;
+
+  constructor(accountService:AccountService, router:Router){
+    this.myAccountService = accountService;
+    this.myRouter = router;
+  }
 
   login() : void {
     if(this.username === '' || this.password === ''){
@@ -24,8 +32,8 @@ export class LoginRegisterComponent {
     }
 
     if(!this.inputError){
-      console.log(this.username);
-      console.log(this.password);
+      this.myAccountService.isLoggedIn = true;
+      this.myRouter.navigate(['/home']);
     } else {
       console.log(">:( ERROR!");
     }
@@ -37,8 +45,8 @@ export class LoginRegisterComponent {
     }
 
     if(!this.inputError){
-      console.log(this.username);
-      console.log(this.password);
+      this.myAccountService.isLoggedIn = true;
+      this.myRouter.navigate(['/home']);
     } else {
       console.log(">:( ERROR!");
     }

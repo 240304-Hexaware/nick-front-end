@@ -2,13 +2,17 @@
 <br><br>
 <table>
     <tr>
-        <th>Filename</th>
-        <th>Specification</th>
+        <th (click)="sortOn('filename')">Filename</th>
+        <th (click)="sortOn('spec')">Specification</th>
+        <th (click)="sortOn('date')">Upload Date</th>
+        <th (click)="sortOn('size')">File Size</th>
         <th>Download</th>
     </tr>
-    <tr>
-        <td>flatfile</td>
-        <td>car.json</td>
+    <tr *ngFor="let file of Files;">
+        <td>{{file.fileName}}</td>
+        <td>{{file.spec}}</td>
+        <td>{{file.uploadDate}}</td>
+        <td>{{file.fileSize}}</td>
         <td style="color: blue; text-decoration: underline;">download</td>
     </tr>
 </table>

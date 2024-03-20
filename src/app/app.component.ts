@@ -13,7 +13,7 @@ import { HomeUploadComponent } from './home-upload/home-upload.component';
   standalone: true,
   imports: [RouterOutlet, FormsModule, CommonModule, LoginRegisterComponent, PastFilesComponent, FileViewComponent, HomeUploadComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
 
@@ -27,8 +27,8 @@ export class AppComponent {
     return this.accountService.isAdmin && this.accountService.isLoggedIn;
   }
 
-  isLoggedIn() : boolean {
-    return this.accountService.isLoggedIn
+  isUser() : boolean {
+    return this.accountService.isLoggedIn && !this.accountService.isAdmin;
   }
 
   title = 'parser-front-end';
