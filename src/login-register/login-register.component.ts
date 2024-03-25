@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { AccountService } from '../app/account.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login-register',
@@ -32,6 +33,9 @@ export class LoginRegisterComponent {
     }
 
     if(!this.inputError){
+      this.myAccountService.TestCall().subscribe(data =>{
+        console.log(data);
+      });
       this.myAccountService.isLoggedIn = true;
       this.myRouter.navigate(['/home']);
     } else {
@@ -55,5 +59,7 @@ export class LoginRegisterComponent {
   resetError() {
     this.inputError = false;
   }
+
+
 
 }

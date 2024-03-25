@@ -25,6 +25,9 @@ export class PastFilesComponent {
      filePath: "c:/nick/fun/woohoohoo", parsedData: "{yeah: some, stuff:yup}", uploader: "Yes"},
   ];
 
+  sorted : boolean = false;
+  sortedOn : string = '';
+
   sortOn(header : string){
     console.log(header);
   }
