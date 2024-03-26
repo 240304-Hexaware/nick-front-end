@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginRegisterComponent } from '../login-register/login-register.component';
@@ -18,9 +18,11 @@ import { HomeUploadComponent } from './home-upload/home-upload.component';
 export class AppComponent {
 
   accountService : AccountService;
+  myRouter: Router;
 
-  constructor(myAccountService : AccountService){
+  constructor(myAccountService : AccountService, router:Router){
     this.accountService = myAccountService;
+    this.myRouter = router;
   }
 
   isAdmin(): boolean {
@@ -29,6 +31,16 @@ export class AppComponent {
 
   isUser() : boolean {
     return this.accountService.isLoggedIn && !this.accountService.isAdmin;
+  }
+
+  link(choice:string){
+    if(choice==='files'){
+      this.myRouter.navigate(['/files']);
+    } else if(choice==='admin'){
+      this.myRouter.navigate(['/admin']);
+    } else {
+      this.myRouter.navigate(['/login']);
+    }
   }
 
   title = 'parser-front-end';

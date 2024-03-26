@@ -19,19 +19,21 @@
   <br> <br> <br>
   <label>Specification:  </label>
   <!-- TODO ngFor get all specs from backend, verify file for upload to backend -->
-  <select> 
-    <option>car.json</option>
+  <select *ngFor="let spec of userSpecs"> 
+    <option>{{spec.specName}}</option>
   </select>
   <br> <br>
   <label>Flatfile upload:  </label><input type="file">
   <br> <br>
   <button (click)="routeToPastFiles()">Parse File</button>
+  <p class="error" *ngIf="inputError || userSpecs === []">Error while selecting file or no uploaded specs</p>
 </div>
 
 <div *ngIf="uploadingSpecFile">
   <a (click)="uploadingFlatFile = false; uploadingSpecFile = false;">Back</a>
   <br> <br> <br>
-  <label>Specification upload:  </label><input type="file">
+  <label>Specification upload:  </label><input (change)="fileSelected($event)" type="file">
   <br> <br>
   <button (click)="uploadSpecification()">Upload Specification</button>
+  <p class="error" *ngIf="inputError">Error while selecting file</p>
 </div>

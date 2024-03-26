@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { AccountService } from '../app/account.service';
 import { catchError, throwError } from 'rxjs';
+import { User } from '../app/User';
 
 @Component({
   selector: 'app-login-register',
@@ -33,13 +34,18 @@ export class LoginRegisterComponent {
     }
 
     if(!this.inputError){
-      this.myAccountService.TestCall().subscribe(data =>{
-        console.log(data);
-      });
-      this.myAccountService.isLoggedIn = true;
-      this.myRouter.navigate(['/home']);
-    } else {
-      console.log(">:( ERROR!");
+      
+      this.myAccountService.GetUserByUser(this.username, this.password).subscribe(data =>{
+        this.myAccountService.isLoggedIn = true;
+        console.log(data.permissions);
+        this.myAccountService.activeUser = data;
+        if(data.permissions === 'admin'){
+          this.myAccountService.isAdmin = true;
+        }    
+        this.myRouter.navigate(['/home']);   
+      }, (error => {
+        this.inputError = true;
+      }));
     }
   }
 
@@ -49,8 +55,15 @@ export class LoginRegisterComponent {
     }
 
     if(!this.inputError){
-      this.myAccountService.isLoggedIn = true;
-      this.myRouter.navigate(['/home']);
+
+      let newUser: User = new User(this.username, this.password, 'user', [], []);
+
+      this.myAccountService.RegisterUser(newUser).subscribe(data => {
+        this.myAccountService.isLoggedIn = true;
+        this.myRouter.navigate(['/home']);
+      }, (error => {
+        console.log(error);
+      }))
     } else {
       console.log(">:( ERROR!");
     }
