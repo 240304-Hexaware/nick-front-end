@@ -5,6 +5,7 @@ import { FileService } from '../file.service';
 import { SpecService } from '../spec.service';
 import { AccountService } from '../account.service';
 import { Spec } from '../Spec';
+import ObjectID from 'bson-objectid';
 
 @Component({
   selector: 'app-home-upload',
@@ -21,17 +22,20 @@ export class HomeUploadComponent {
   chosenFile : File | undefined;
   mySpecService : SpecService;
   myAccountService : AccountService;
+  myFileService : FileService;
   userSpecs : Spec[] = [];
+  selectedSpec: string = '';
 
-  constructor(router:Router, specService:SpecService, accountService:AccountService){
+  constructor(router:Router, specService:SpecService, accountService:AccountService, fileService:FileService){
     this.myRouter = router;
     this.mySpecService = specService;
     this.myAccountService = accountService;
+    this.myFileService = fileService;
     this.updateUserSpecs();
   }
 
   routeToPastFiles(){
-
+    this.myRouter.navigate(['/files']);
   }
 
   fileSelected(event:any){
@@ -47,12 +51,8 @@ export class HomeUploadComponent {
   uploadSpecification(){
     if(this.chosenFile){
       if(this.myAccountService.activeUser?.username){
-        console.log(this.chosenFile);
-        console.log(this.myAccountService.activeUser);
         this.mySpecService.uploadSpec(this.chosenFile, this.myAccountService.activeUser.username).subscribe(data => {
-          //this.updateUserSpecs(); Perm Solution
-          this.userSpecs.push(data);
-          console.log(data);
+          this.updateUserSpecs();
           this.uploadingFlatFile = false;
           this.uploadingSpecFile = false;
           alert('spec upload successful');
@@ -66,13 +66,45 @@ export class HomeUploadComponent {
     } else {
       this.inputError = true;
     }
+    this.chosenFile = undefined;
   }
+
+  uploadFile(){
+    if(this.chosenFile){
+      if(this.myAccountService.activeUser?.username){
+        this.myFileService.uploadFile(this.chosenFile, this.selectedSpec, this.myAccountService.activeUser.username).subscribe(data => {
+          console.log(data);
+          this.routeToPastFiles();
+        }, (error) => {
+          console.log(error);
+        })
+      }
+    }
+
+  }
+
 
   updateUserSpecs(){
     if(this.myAccountService.activeUser?.specifications){
-      this.mySpecService.getAllSpecsByIds(this.myAccountService.activeUser?.specifications).subscribe(data => {
+      // let specs:ObjectID[] = this.myAccountService.activeUser?.specifications;
+      // let specStrings:string[] = [];
+      // for(let i = 0; i < specs.length; i++){
+      //   specStrings.push(specs[i].id);
+      // }
+      // this.mySpecService.getAllSpecsByIds(this.myAccountService.activeUser.specifications).subscribe(data => {
+      //   console.log(data);
+      //   this.userSpecs = data;
+      // }, (error => {
+      //   console.log(error);
+      // }))
+      this.mySpecService.getAllSpecs().subscribe(data => {
+        console.log(data);
         this.userSpecs = data;
-      })
+        console.log(this.userSpecs);
+      }, (error => {
+        console.log(error);
+      }));
+      console.log(this.userSpecs);
     }
   }
   

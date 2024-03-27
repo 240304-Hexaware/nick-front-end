@@ -13,13 +13,15 @@ export class SpecService {
 
   baseurl = 'http://localhost:8080/spec';
 
-  getAllSpecsByIds(ids : ObjectID[]):Observable<Spec[]>{
-    let params: HttpParams = new HttpParams();
-    for(let i = 0; i < ids.length; i++){
-      params.set(`id[${i}]`, ids[i].id);
-    }
+  // getAllSpecsByIds(ids : ObjectID[]):Observable<Spec[]>{
+  //   let form: FormData = new FormData();
+  //   form.append('ids', JSON.stringify(ids));
 
-    return this.http.get<Spec[]>(this.baseurl+'/id', {params});
+  //   return this.http.get<Spec[]>(this.baseurl+'/id', form);
+  // }
+
+  getAllSpecs():Observable<Spec[]>{
+    return this.http.get<Spec[]>(this.baseurl);
   }
 
   uploadSpec(newFile:File, uploader:string):Observable<Spec>{
