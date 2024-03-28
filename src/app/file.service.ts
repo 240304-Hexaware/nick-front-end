@@ -28,6 +28,10 @@ export class FileService {
     return this.http.get<readFile[]>(this.baseurl+'/id', {params});
   }
 
+  getAllFiles():Observable<readFile[]>{
+    return this.http.get<readFile[]>(this.baseurl);
+  }
+
   uploadFile(newFile: File, specName:string, uploader:string):Observable<string>{
     let form: FormData = new FormData();
     form.append("file", newFile)

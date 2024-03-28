@@ -24,7 +24,7 @@ export class HomeUploadComponent {
   myAccountService : AccountService;
   myFileService : FileService;
   userSpecs : Spec[] = [];
-  selectedSpec: string = '';
+  selectedSpec: string = 'car.json';
 
   constructor(router:Router, specService:SpecService, accountService:AccountService, fileService:FileService){
     this.myRouter = router;
@@ -72,6 +72,7 @@ export class HomeUploadComponent {
   uploadFile(){
     if(this.chosenFile){
       if(this.myAccountService.activeUser?.username){
+        console.log(this.selectedSpec);
         this.myFileService.uploadFile(this.chosenFile, this.selectedSpec, this.myAccountService.activeUser.username).subscribe(data => {
           console.log(data);
           this.routeToPastFiles();

@@ -8,9 +8,9 @@
         <th (click)="sortOn('size')">File Size</th>
         <th>Download</th>
     </tr>
-    <tr *ngFor="let file of Files;">
+    <tr *ngFor="let file of files;" (click)="showRecord(file)">
         <td>{{file.fileName}}</td>
-        <td>{{file.spec}}</td>
+        <td>{{file.specId}}</td>
         <td>{{file.uploadDate}}</td>
         <td>{{file.fileSize}}</td>
         <td style="color: blue; text-decoration: underline;">download</td>

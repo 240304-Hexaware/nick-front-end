@@ -11,7 +11,7 @@ export const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'login', component: LoginRegisterComponent},
     {path: 'files', component: PastFilesComponent, canActivate:[loginGuard]},
-    {path: 'fileview', component: FileViewComponent, canActivate:[loginGuard]},
+    {path: 'fileview/:fileName', component: FileViewComponent, canActivate:[loginGuard]},
     {path: 'admin', component: AdminComponent, canActivate:[adminGuard]},
     {path: 'home', component: HomeUploadComponent, canActivate:[loginGuard]}
 ];

@@ -2,14 +2,18 @@
 <br>
 <h1 style="text-align: center;">Filename</h1>
 <div style="margin-left: auto; margin-right: auto;">
-    <div class="row">
+    <div class="row" *ngFor="let record of this.displayRecords">
         <div class="column">
-          <h2>Column 1</h2>
-          <p>Some text..</p>
+          <h2>JSON Representation</h2>
+          <p>{{record.parsedData}}</p>
         </div>
         <div class="column" style="background-color:#bbb;">
-          <h2>Column 2</h2>
-          <p>Some text..</p>
+          <h2>Metadata</h2>
+          <p>File Name: {{record.fileName}}</p>
+          <p>Upload Date: {{record.uploadDate}}</p>
+          <p>File Size: {{record.fileSize}}</p>
+          <p>Specification: {{record.specId}}</p>
+          <p>Uploader {{record.uploader}}</p>
         </div>
     </div>
 </div>
