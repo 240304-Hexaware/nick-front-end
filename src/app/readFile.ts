@@ -9,11 +9,11 @@ export class readFile {
 
     public filePath: string;
 
-    public parsedData: string;
+    public parsedData: string[];
 
     public uploader: string;
 
-    constructor(name:string, specId:string, date:Date, size:number, path:string, parsed:string, uploader:string){
+    constructor(name:string, specId:string, date:Date, size:number, path:string, parsed:string[], uploader:string){
         this.fileName = name;
         this.specId = specId;
         this.uploadDate = date;

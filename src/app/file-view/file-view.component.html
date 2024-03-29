@@ -5,7 +5,9 @@
     <div class="row" *ngFor="let record of this.displayRecords">
         <div class="column">
           <h2>JSON Representation</h2>
-          <p>{{record.parsedData}}</p>
+          <div *ngFor="let parsed of record.parsedData">
+            <p>{{parsed}}</p>
+          </div>
         </div>
         <div class="column" style="background-color:#bbb;">
           <h2>Metadata</h2>
