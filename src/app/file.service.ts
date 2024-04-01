@@ -13,10 +13,10 @@ export class FileService {
 
   baseurl = 'http://localhost:8080/files';
 
-  getAllFilesWithName(fileName:string):Observable<readFile[]>{
+  getAllFilesWithName(fileName:string):Observable<readFile>{
     let params: HttpParams = new HttpParams().set('filename', fileName);
-
-    return this.http.get<readFile[]>(this.baseurl, {params});
+    console.log(params);
+    return this.http.get<readFile>(this.baseurl+'/name', {params});
   }
 
   getAllFilesByIds(ids:ObjectID[]):Observable<readFile[]>{

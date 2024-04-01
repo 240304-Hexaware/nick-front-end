@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import ObjectID from 'bson-objectid';
 import { FileService } from '../file.service';
 import { readFile } from '../readFile';
 import { Router } from '@angular/router';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-past-files',
@@ -14,45 +15,87 @@ import { Router } from '@angular/router';
 })
 export class PastFilesComponent {
 
-  files:readFile[] = [
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "woo", spec: "spec2", uploadDate:new Date('December 17, 1990 03:24:00'), fileSize: 10020300,
-    //  filePath: "c:/nick/fun/woohoo", parsedData: "{yeah: some, stuff:yup}", uploader: "SmileBrother4eva"},
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "forever", spec: "spec3", uploadDate:new Date('December 13, 1999 03:24:00'), fileSize: 9999999,
-    //  filePath: "c:/nick/fun/woohoont", parsedData: "{yeah: some, stuff:yup}", uploader: "Nicholas"},
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "uhhuh", spec: "spec1", uploadDate:new Date('December 17, 2022 03:24:00'), fileSize: 555555555,
-    //  filePath: "c:/nick/fun/woohooooooo", parsedData: "{yeah: some, stuff:yup}", uploader: "NICHOLAS"},
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "forsure", spec: "spec5", uploadDate:new Date('December 17, 1902 03:24:00'), fileSize: 43434343434,
-    //  filePath: "c:/nick/fun/woohoopla", parsedData: "{yeah: some, stuff:yup}", uploader: "FrownDastard"},
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "nah", spec: "spe", uploadDate:new Date('December 17, 2000 03:24:00'), fileSize: 12121221122121,
-    //  filePath: "c:/nick/fun/woohooligan", parsedData: "{yeah: some, stuff:yup}", uploader: "XxGamingBroxX"},
-    // {id: ObjectID("65f204938bc5ab7a1244686f"), fileName: "noway", spec: "spec4eva", uploadDate:new Date('December 17, 2008 03:24:00'), fileSize: 8989989989,
-    //  filePath: "c:/nick/fun/woohoohoo", parsedData: "{yeah: some, stuff:yup}", uploader: "Yes"},
-  ];
+
+  files:readFile[] = [];
 
   sorted : boolean = false;
   sortedOn : string = '';
   myFileService:FileService;
+  myAccountService:AccountService;
   myRouter:Router;
+  showAll : boolean = false;
 
-  constructor(fileService:FileService, router:Router){
+  constructor(fileService:FileService, accountService:AccountService, router:Router){
     this.myFileService = fileService;
     this.myRouter = router;
+    this.myAccountService = accountService;
   }
 
   ngOnInit(){
-    this.myFileService.getAllFiles().subscribe(data => {
-      this.files = data;
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
+    if(this.myAccountService.activeUser){
+      this.myAccountService.GetUsersFiles(this.myAccountService.activeUser?.username).subscribe(data => {
+        this.files = data;
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
-  sortOn(header : string){
-    console.log(header);
+  sortOn(header : string, el:HTMLElement){
+    el.style.fontStyle = "italic";
+    switch(header){
+      case "filename":{
+        this.files = this.files.slice().sort((a, b) => a.fileName.localeCompare(b.fileName));
+        
+        break;
+      }
+      case "spec": {
+        this.files = this.files.slice().sort((a, b) => a.specId.localeCompare(b.specId));
+        
+        break;
+      }
+      case "date": {
+        this.files = this.files.slice().sort((a, b) => a.uploadDate.valueOf() - b.uploadDate.valueOf());
+        
+        break;
+      }
+      case "size": {
+        this.files = this.files.slice().sort((a, b) => a.fileSize - b.fileSize);
+        
+        break;
+      }
+      case "uploader": {
+        this.files = this.files.slice().sort((a, b) => a.uploader.localeCompare(b.uploader));
+        
+        break;
+      }
+    }
   }
 
   showRecord(showFile: readFile) {
     this.myRouter.navigate(['fileview', showFile.fileName]);
+  }
+
+  toggleShowAll() {
+    if(this.showAll === false){
+      this.showAll = true;
+      this.myFileService.getAllFiles().subscribe(data => {
+        this.files = data;
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      this.showAll = false;
+      if(this.myAccountService.activeUser){
+        this.myAccountService.GetUsersFiles(this.myAccountService.activeUser?.username).subscribe(data => {
+          this.files = data;
+          console.log(data);
+        }, error => {
+          console.log(error);
+        });
+      }
+    }
   }
 }

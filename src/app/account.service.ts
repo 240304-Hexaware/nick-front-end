@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from './User';
 import ObjectID from 'bson-objectid';
+import { readFile } from './readFile';
 
 
 //Manages what user is logged in and their privelages
@@ -37,6 +38,12 @@ export class AccountService {
     let params : HttpParams = new HttpParams().set('username', user.username).set('permissions', newPerms);
 
     return this.http.put<User>(this.baseurl, {params}).pipe(catchError(this.errorHandler));
+  }
+
+  GetUsersFiles(username:string):Observable<readFile[]>{
+    let params: HttpParams = new HttpParams().set('username', username);
+
+    return this.http.get<readFile[]>(this.baseurl+'/files', {params}).pipe(catchError(this.errorHandler));
   }
 
   TestCall():Observable<Object>{

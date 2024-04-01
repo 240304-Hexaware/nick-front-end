@@ -1,18 +1,19 @@
 <h1 style="text-align: center;">Previously Uploaded Files</h1>
 <br><br>
-<table>
+<input type="checkbox" (click)="toggleShowAll()"><label>Show Every User's Files</label>
+<table style="cursor: pointer;">
     <tr>
-        <th (click)="sortOn('filename')">Filename</th>
-        <th (click)="sortOn('spec')">Specification</th>
-        <th (click)="sortOn('date')">Upload Date</th>
-        <th (click)="sortOn('size')">File Size</th>
-        <th>Download</th>
+        <th #filenameH (click)="sortOn('filename', filenameH)">Filename</th>
+        <th #specH (click)="sortOn('spec', specH)">Specification</th>
+        <th #dateH (click)="sortOn('date', dateH)">Upload Date</th>
+        <th #sizeH (click)="sortOn('size', sizeH)">File Size</th>
+        <th #uploaderH (click)="sortOn('uploader', uploaderH)">Uploader</th>
     </tr>
-    <tr *ngFor="let file of files;" (click)="showRecord(file)">
+    <tr *ngFor="let file of files;" (click)="showRecord(file)" >
         <td>{{file.fileName}}</td>
         <td>{{file.specId}}</td>
         <td>{{file.uploadDate}}</td>
         <td>{{file.fileSize}}</td>
-        <td style="color: blue; text-decoration: underline;">download</td>
+        <td>{{file.uploader}}</td>
     </tr>
 </table>

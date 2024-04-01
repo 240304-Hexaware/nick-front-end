@@ -24,7 +24,6 @@ export class FileViewComponent {
 
   ngOnInit(){
     this.aRoute.params.subscribe(data => {
-      console.log(data);
       this.displayFileName = data['fileName'];
       this.getDisplayFile();
     }, error => {
@@ -35,10 +34,8 @@ export class FileViewComponent {
   getDisplayFile(){
     if(this.displayFileName){
       this.myFileService.getAllFilesWithName(this.displayFileName).subscribe(data => {
-        for(let i = 0; i < data.length; i++){
-          this.displayRecords = data;
-          console.log(this.displayRecords);
-        }
+        this.displayRecords = [];
+        this.displayRecords.push(data);
       }, error => {
         console.log(error);
       })
