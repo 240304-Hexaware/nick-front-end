@@ -19,8 +19,8 @@
   <br> <br> <br>
   <label>Specification:  </label>
   <!-- TODO ngFor get all specs from backend, verify file for upload to backend -->
-  <select *ngFor="let spec of userSpecs" #specs (change)="selectedSpec = specs.value"> 
-    <option>{{spec.specName}}</option>
+  <select #specs (change)="selectedSpec = specs.value"> 
+    <option *ngFor="let spec of userSpecs">{{spec.specName}}</option>
   </select>
   <br> <br>
   <label>Flatfile upload:  </label><input type="file" (change)="fileSelected($event)">

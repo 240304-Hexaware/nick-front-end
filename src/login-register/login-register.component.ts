@@ -59,6 +59,7 @@ export class LoginRegisterComponent {
       let newUser: User = new User(this.username, this.password, 'user', [], []);
 
       this.myAccountService.RegisterUser(newUser).subscribe(data => {
+        this.myAccountService.activeUser = data;
         this.myAccountService.isLoggedIn = true;
         this.myRouter.navigate(['/home']);
       }, (error => {

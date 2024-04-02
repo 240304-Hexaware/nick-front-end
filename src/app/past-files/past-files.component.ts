@@ -15,7 +15,6 @@ import { AccountService } from '../account.service';
 })
 export class PastFilesComponent {
 
-
   files:readFile[] = [];
 
   sorted : boolean = false;
@@ -24,6 +23,7 @@ export class PastFilesComponent {
   myAccountService:AccountService;
   myRouter:Router;
   showAll : boolean = false;
+  sortingOn: string = "";
 
   constructor(fileService:FileService, accountService:AccountService, router:Router){
     this.myFileService = fileService;
@@ -42,32 +42,27 @@ export class PastFilesComponent {
     }
   }
 
-  sortOn(header : string, el:HTMLElement){
-    el.style.fontStyle = "italic";
+  sortOn(header : string){
+    this.sortingOn = header;
     switch(header){
       case "filename":{
         this.files = this.files.slice().sort((a, b) => a.fileName.localeCompare(b.fileName));
-        
         break;
       }
       case "spec": {
         this.files = this.files.slice().sort((a, b) => a.specId.localeCompare(b.specId));
-        
         break;
       }
       case "date": {
-        this.files = this.files.slice().sort((a, b) => a.uploadDate.valueOf() - b.uploadDate.valueOf());
-        
+        this.files = this.files.slice().sort((a, b) => a.uploadDate.toString().localeCompare(b.uploadDate.toString()));
         break;
       }
       case "size": {
         this.files = this.files.slice().sort((a, b) => a.fileSize - b.fileSize);
-        
         break;
       }
       case "uploader": {
         this.files = this.files.slice().sort((a, b) => a.uploader.localeCompare(b.uploader));
-        
         break;
       }
     }
@@ -76,6 +71,7 @@ export class PastFilesComponent {
   showRecord(showFile: readFile) {
     this.myRouter.navigate(['fileview', showFile.fileName]);
   }
+
 
   toggleShowAll() {
     if(this.showAll === false){
