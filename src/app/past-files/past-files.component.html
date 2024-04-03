@@ -1,20 +1,20 @@
 <h1 style="text-align: center;">Previously Uploaded Files</h1>
 <a (click)="this.myRouter.navigate(['home']);">Back To Home</a>
 <br><br>
-<input type="checkbox" (click)="toggleShowAll()"><label>Show Every User's Files</label>
-<table style="cursor: pointer;">
-    <tr>
-        <th [class.sorting]="this.sortingOn === 'filename'" (click)="sortOn('filename')">Filename</th>
-        <th [class.sorting]="this.sortingOn === 'spec'" (click)="sortOn('spec')">Specification</th>
-        <th [class.sorting]="this.sortingOn === 'date'" (click)="sortOn('date')">Upload Date</th>
-        <th [class.sorting]="this.sortingOn === 'size'" (click)="sortOn('size')">File Size</th>
-        <th [class.sorting]="this.sortingOn === 'uploader'" (click)="sortOn('uploader')">Uploader</th>
-    </tr>
-    <tr *ngFor="let file of files;" (click)="showRecord(file)" >
-        <td>{{file.fileName}}</td>
-        <td>{{file.specId}}</td>
-        <td>{{file.uploadDate}}</td>
-        <td>{{file.fileSize}}</td>
-        <td>{{file.uploader}}</td>
-    </tr>
-</table>
+<div class="centered">
+    <input type="checkbox" (click)="toggleShowAll()"><label>Show Every User's Files</label>
+    <table style="cursor: pointer;">
+        <tr>
+            <th [class.sorting]="this.sortingOn === 'filename'" (click)="sortOn('filename')">Filename</th>
+            <th [class.sorting]="this.sortingOn === 'spec'" (click)="sortOn('spec')">Specification</th>
+            <th [class.sorting]="this.sortingOn === 'date'" (click)="sortOn('date')">Upload Date</th>
+            <th [class.sorting]="this.sortingOn === 'uploader'" (click)="sortOn('uploader')">Uploader</th>
+        </tr>
+        <tr *ngFor="let file of files;" (click)="showRecord(file)" >
+            <td>{{file.fileName}}</td>
+            <td>{{file.specId}}</td>
+            <td>{{file.uploadDate}}</td>
+            <td>{{file.uploader}}</td>
+        </tr>
+    </table>
+</div>

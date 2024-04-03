@@ -1,8 +1,12 @@
 table {
-    text-align: center;
     border-collapse: collapse;
     width: 75%;
-  }
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
   
   td, th {
     border: 1px solid black;

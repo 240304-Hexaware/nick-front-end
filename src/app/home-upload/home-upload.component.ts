@@ -61,7 +61,7 @@ export class HomeUploadComponent {
           this.inputError = true;
         }));
       } else {
-        console.log('you arent logged in?');
+        this.inputError = true;
       }
     } else {
       this.inputError = true;
@@ -78,8 +78,11 @@ export class HomeUploadComponent {
           this.routeToPastFiles();
         }, (error) => {
           console.log(error);
+          this.inputError = true;
         })
       }
+    } else{
+      this.inputError = true;
     }
 
   }
@@ -87,17 +90,6 @@ export class HomeUploadComponent {
 
   updateUserSpecs(){
     if(this.myAccountService.activeUser?.specifications){
-      // let specs:ObjectID[] = this.myAccountService.activeUser?.specifications;
-      // let specStrings:string[] = [];
-      // for(let i = 0; i < specs.length; i++){
-      //   specStrings.push(specs[i].id);
-      // }
-      // this.mySpecService.getAllSpecsByIds(this.myAccountService.activeUser.specifications).subscribe(data => {
-      //   console.log(data);
-      //   this.userSpecs = data;
-      // }, (error => {
-      //   console.log(error);
-      // }))
       this.mySpecService.getAllSpecs().subscribe(data => {
         console.log(data);
         this.userSpecs = data;

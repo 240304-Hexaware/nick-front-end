@@ -44,6 +44,7 @@ export class PastFilesComponent {
 
   sortOn(header : string){
     this.sortingOn = header;
+    
     switch(header){
       case "filename":{
         this.files = this.files.slice().sort((a, b) => a.fileName.localeCompare(b.fileName));
@@ -55,10 +56,6 @@ export class PastFilesComponent {
       }
       case "date": {
         this.files = this.files.slice().sort((a, b) => a.uploadDate.toString().localeCompare(b.uploadDate.toString()));
-        break;
-      }
-      case "size": {
-        this.files = this.files.slice().sort((a, b) => a.fileSize - b.fileSize);
         break;
       }
       case "uploader": {

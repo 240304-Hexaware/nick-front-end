@@ -1,24 +1,22 @@
 <div *ngIf="!(uploadingFlatFile || uploadingSpecFile)">
   <h1 style="text-align: center;">Home</h1>
-  <div style="margin-left: auto; margin-right: auto;">
       <div class="row">
           <div class="column" (click)="uploadingFlatFile = true; uploadingSpecFile = false;">
             <h2>Upload New Flat File</h2>
-            <p>Some text..</p>
+            <p>Upload a new file to be parsed by a specification</p>
           </div>
-          <div class="column" (click)="uploadingFlatFile = false; uploadingSpecFile = true;">
+        <div class="column" (click)="uploadingFlatFile = false; uploadingSpecFile = true;">
             <h2>Upload New Specification</h2>
-            <p>Some text..</p>
-          </div>
-      </div>
-  </div>
+            <p>NOTE: any .json file you upload can be used by all users</p>
+        </div>
+    </div>
 </div>
+
 
 <div *ngIf="uploadingFlatFile">
   <a (click)="uploadingFlatFile = false; uploadingSpecFile = false;">Back</a>
   <br> <br> <br>
   <label>Specification:  </label>
-  <!-- TODO ngFor get all specs from backend, verify file for upload to backend -->
   <select #specs (change)="selectedSpec = specs.value"> 
     <option *ngFor="let spec of userSpecs">{{spec.specName}}</option>
   </select>
@@ -29,7 +27,7 @@
   <p class="error" *ngIf="inputError || userSpecs === []">Error while selecting file or no uploaded specs</p>
 </div>
 
-<div *ngIf="uploadingSpecFile">
+<div *ngIf="uploadingSpecFile" >
   <a (click)="uploadingFlatFile = false; uploadingSpecFile = false;">Back</a>
   <br> <br> <br>
   <label>Specification upload:  </label><input (change)="fileSelected($event)" type="file">
