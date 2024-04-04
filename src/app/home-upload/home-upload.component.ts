@@ -87,7 +87,6 @@ export class HomeUploadComponent {
 
   }
 
-
   updateUserSpecs(){
     if(this.myAccountService.activeUser?.specifications){
       this.mySpecService.getAllSpecs().subscribe(data => {
@@ -100,5 +99,4 @@ export class HomeUploadComponent {
       console.log(this.userSpecs);
     }
   }
-  
 }

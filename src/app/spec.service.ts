@@ -13,13 +13,6 @@ export class SpecService {
 
   baseurl = 'http://localhost:8080/spec';
 
-  // getAllSpecsByIds(ids : ObjectID[]):Observable<Spec[]>{
-  //   let form: FormData = new FormData();
-  //   form.append('ids', JSON.stringify(ids));
-
-  //   return this.http.get<Spec[]>(this.baseurl+'/id', form);
-  // }
-
   getAllSpecs():Observable<Spec[]>{
     return this.http.get<Spec[]>(this.baseurl);
   }

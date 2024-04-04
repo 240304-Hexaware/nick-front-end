@@ -19,15 +19,6 @@ export class FileService {
     return this.http.get<readFile>(this.baseurl+'/name', {params});
   }
 
-  getAllFilesByIds(ids:ObjectID[]):Observable<readFile[]>{
-    let params: HttpParams = new HttpParams();
-    for(let i = 0; i < ids.length; i++){
-      params.set(`id[${i}]`, ids[i].id);
-    }
-
-    return this.http.get<readFile[]>(this.baseurl+'/id', {params});
-  }
-
   getAllFiles():Observable<readFile[]>{
     return this.http.get<readFile[]>(this.baseurl);
   }
